@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  RecentlyViewedViewController.h
 //  TopPlaces
 //
 //  Created by Luis Carbuccia on 8/14/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface RecentlyViewedViewController : UIViewController
 
 @end
