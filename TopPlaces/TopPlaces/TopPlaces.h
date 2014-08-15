@@ -10,8 +10,12 @@
 
 @interface TopPlaces : NSObject
 
+@property (nonatomic, strong) NSMutableArray *placesWithNamesSplit;
+@property (nonatomic) int numberOfDistinctCountriesInArray;
 
 - (NSArray *)placeNameSplitIntoComponents;
 - (NSArray *)getTopPlaces;
+- (NSArray *) numberOfCountries;
+- (NSArray *) topPlacesByCountryArray;
 
 @end

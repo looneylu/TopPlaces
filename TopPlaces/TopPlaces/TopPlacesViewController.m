@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *topPlacesTableView;
 @property (strong, nonatomic) NSArray *topPlaces;
+@property (strong, nonatomic) NSArray *topCountries;
+@property (strong, nonatomic) NSArray *topPlacesByCountryArray;
 @property (strong, nonatomic) TopPlaces *places;
 
 @end
@@ -41,6 +43,11 @@
     
     self.topPlaces = [[NSArray alloc] initWithArray:[self.places placeNameSplitIntoComponents]];
     
+    self.topCountries = [[NSArray alloc] initWithArray:[self.places numberOfCountries]];
+
+    self.topPlacesByCountryArray = [[NSArray alloc] initWithArray:[self.places topPlacesByCountryArray]];
+//    NSLog(@"%@", self.topPlacesByCountryArray);
+//    NSLog(@"%i", [self.topPlacesByCountryArray count]);
 }
 
 #pragma mark - Delegate/Data Source
@@ -59,6 +66,11 @@
 {
 
     return [self.topPlaces count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1; 
 }
 
 

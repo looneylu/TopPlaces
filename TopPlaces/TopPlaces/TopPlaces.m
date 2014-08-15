@@ -46,7 +46,7 @@
     NSArray *placeNames = [[NSArray alloc] initWithArray:[self getTopPlaces]];
     
     // placesWithNamesSplit
-    NSMutableArray *placesWithNamesSplit = [[NSMutableArray alloc] init];
+    self.placesWithNamesSplit = [[NSMutableArray alloc] init];
     
     // go through array of placeNames and split up names into components
     for (NSString *name in placeNames)
@@ -65,19 +65,67 @@
         [placeDictionary setObject:[splitName objectAtIndex:1] forKey:@"district"];
         [placeDictionary setObject:[splitName lastObject] forKey:@"country"];
         
-        [placesWithNamesSplit addObject:placeDictionary];
+        [self.placesWithNamesSplit addObject:placeDictionary];
     }
     
     // Sort array in alphabetical order by city and country
     NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
     NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"city" ascending:YES];
-    [placesWithNamesSplit sortUsingDescriptors:@[sortDescriptor1, sortDescriptor2]];
+    [self.placesWithNamesSplit sortUsingDescriptors:@[sortDescriptor1, sortDescriptor2]];
     
-    return placesWithNamesSplit;
+//    [self.placesWithNamesSplit count];
+    
+    return self.placesWithNamesSplit;
 }
 
-- (void) test
+
+- (NSArray *)numberOfCountries
 {
-    NSLog(@"test"); 
+    int count = 0;
+    NSMutableArray *countryArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 1 ; i < [self.placesWithNamesSplit count] ; i++)
+    {
+        if (![[[self.placesWithNamesSplit objectAtIndex:i] objectForKey:@"country"] isEqualToString:[[self.placesWithNamesSplit objectAtIndex:i-1] objectForKey:@"country"]])
+        {
+            [countryArray addObject:[[self.placesWithNamesSplit objectAtIndex:i-1] objectForKey:@"country"]];
+            count++;
+        }
+    }
+    
+    [countryArray addObject:[[self.placesWithNamesSplit lastObject] objectForKey:@"country"]];
+    
+    return countryArray;
 }
+
+- (NSArray *) topPlacesByCountryArray
+{
+    NSArray *topCountries = [[NSArray alloc] initWithArray:[self numberOfCountries]];
+//    NSLog(@"%@", topCountries);
+//    NSLog(@"%i", [topCountries count]);
+    
+    NSMutableArray *outerArray = [[NSMutableArray alloc] init];
+    
+    for (NSString *string in topCountries)
+    {
+        NSMutableArray *innerArray = [[NSMutableArray alloc] init];
+        for (NSDictionary *dict in self.placesWithNamesSplit)
+        {
+            if ([[dict objectForKey:@"country"] isEqualToString:string])
+            {
+                [innerArray addObject:dict];
+            }
+
+        }
+        
+        [outerArray insertObject:innerArray atIndex:[outerArray count]];
+    }
+    
+//    NSLog(@"%@", outerArray);
+//    NSLog(@"%i", [outerArray count]);
+    
+    return outerArray;
+}
+
+
 @end
