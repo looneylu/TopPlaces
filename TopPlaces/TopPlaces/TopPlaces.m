@@ -68,11 +68,10 @@
         [placesWithNamesSplit addObject:placeDictionary];
     }
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    NSArray *sortedArray = [placesWithNamesSplit sortedArrayUsingDescriptors:sortDescriptors];
-    placesWithNamesSplit = [NSMutableArray arrayWithArray:sortedArray];
-    NSLog(@"%@", placesWithNamesSplit); 
+    // Sort array in alphabetical order by city and country
+    NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
+    NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"city" ascending:YES];
+    [placesWithNamesSplit sortUsingDescriptors:@[sortDescriptor1, sortDescriptor2]];
     
     return placesWithNamesSplit;
 }
