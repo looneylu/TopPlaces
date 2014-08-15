@@ -14,6 +14,4 @@
 - (NSArray *)placeNameSplitIntoComponents;
 - (NSArray *)getTopPlaces;
 
-- (void) test;
-
 @end

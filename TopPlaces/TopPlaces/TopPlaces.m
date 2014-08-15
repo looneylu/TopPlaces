@@ -68,6 +68,12 @@
         [placesWithNamesSplit addObject:placeDictionary];
     }
     
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    NSArray *sortedArray = [placesWithNamesSplit sortedArrayUsingDescriptors:sortDescriptors];
+    placesWithNamesSplit = [NSMutableArray arrayWithArray:sortedArray];
+    NSLog(@"%@", placesWithNamesSplit); 
+    
     return placesWithNamesSplit;
 }
 
