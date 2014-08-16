@@ -72,15 +72,14 @@
     NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
     NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"city" ascending:YES];
     [self.placesWithNamesSplit sortUsingDescriptors:@[sortDescriptor1, sortDescriptor2]];
-    
-//    [self.placesWithNamesSplit count];
-    
+
     return self.placesWithNamesSplit;
 }
 
 
 - (NSArray *)numberOfCountries
 {
+    // returns an array of just the top countries
     int count = 0;
     NSMutableArray *countryArray = [[NSMutableArray alloc] init];
     
@@ -94,15 +93,14 @@
     }
     
     [countryArray addObject:[[self.placesWithNamesSplit lastObject] objectForKey:@"country"]];
-    
+
     return countryArray;
 }
 
 - (NSArray *) topPlacesByCountryArray
 {
+    // two dimensional array to get top places divided by countries
     NSArray *topCountries = [[NSArray alloc] initWithArray:[self numberOfCountries]];
-//    NSLog(@"%@", topCountries);
-//    NSLog(@"%i", [topCountries count]);
     
     NSMutableArray *outerArray = [[NSMutableArray alloc] init];
     
@@ -120,10 +118,6 @@
         
         [outerArray insertObject:innerArray atIndex:[outerArray count]];
     }
-    
-//    NSLog(@"%@", outerArray);
-//    NSLog(@"%i", [outerArray count]);
-    
     return outerArray;
 }
 
