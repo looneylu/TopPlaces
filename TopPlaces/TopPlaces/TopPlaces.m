@@ -37,7 +37,14 @@
         [placeNames addObject:[place objectForKey:@"_content" ]];
     }
     
+    NSLog(@"%@", places);
+    
     return placeNames;
+}
+
+- (void) queryForPhotos
+{
+    
 }
 
 - (NSArray *)placeNameSplitIntoComponents

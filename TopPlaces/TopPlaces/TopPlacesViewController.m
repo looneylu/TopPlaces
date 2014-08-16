@@ -42,13 +42,8 @@
     self.topPlacesTableView.dataSource = self;
     
     self.topPlaces = [[NSArray alloc] initWithArray:[self.places placeNameSplitIntoComponents]];
-    NSLog(@"number of top places %i", [self.topPlaces count]);
-    
     self.topCountries = [[NSArray alloc] initWithArray:[self.places numberOfCountries]];
-//    NSLog(@"topCountries set");
-    
     self.topPlacesByCountryArray = [[NSArray alloc] initWithArray:[self.places topPlacesByCountryArray]];
-//    NSLog(@"topPlacesByCountryArray %i", [self.topPlacesByCountryArray count]);
 }
 
 #pragma mark - Delegate/Data Source
@@ -77,6 +72,12 @@
 {
     // the number of sections is equal to the number of top countries
     return  [self.topCountries count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    //returns the country title for each section of table view
+    return [self.topCountries objectAtIndex:section];
 }
 
 

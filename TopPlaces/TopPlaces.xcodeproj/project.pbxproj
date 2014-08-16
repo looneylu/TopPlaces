@@ -24,6 +24,7 @@
 		8463EA2D199D3BBD00DE8C69 /* TopPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463EA2C199D3BBD00DE8C69 /* TopPlacesViewController.m */; };
 		8463EA30199D3BDC00DE8C69 /* RecentlyViewedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463EA2F199D3BDC00DE8C69 /* RecentlyViewedViewController.m */; };
 		8463EA33199D42B800DE8C69 /* TopPlaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 8463EA32199D42B800DE8C69 /* TopPlaces.m */; };
+		84DF796C199FA558006A9B66 /* PlacePhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF796B199FA558006A9B66 /* PlacePhotosTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		8463EA2F199D3BDC00DE8C69 /* RecentlyViewedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentlyViewedViewController.m; sourceTree = "<group>"; };
 		8463EA31199D42B800DE8C69 /* TopPlaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlaces.h; sourceTree = "<group>"; };
 		8463EA32199D42B800DE8C69 /* TopPlaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlaces.m; sourceTree = "<group>"; };
+		84DF796A199FA558006A9B66 /* PlacePhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePhotosTableViewController.h; sourceTree = "<group>"; };
+		84DF796B199FA558006A9B66 /* PlacePhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacePhotosTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				8463E9F7199D331800DE8C69 /* Main.storyboard */,
+				84DF796E199FA5B7006A9B66 /* View Controllers */,
 				8463EA34199D42C300DE8C69 /* Top Places */,
-				8463EA26199D39CB00DE8C69 /* Top Places */,
 				8463EA2A199D3A9800DE8C69 /* RecentlyViewedPhotos */,
 				8463EA1A199D333100DE8C69 /* AppDelegate */,
 				8463EA1B199D338F00DE8C69 /* Flickr Fetcher */,
@@ -182,15 +185,6 @@
 			path = "Flickr Fetcher";
 			sourceTree = "<group>";
 		};
-		8463EA26199D39CB00DE8C69 /* Top Places */ = {
-			isa = PBXGroup;
-			children = (
-				8463EA2B199D3BBD00DE8C69 /* TopPlacesViewController.h */,
-				8463EA2C199D3BBD00DE8C69 /* TopPlacesViewController.m */,
-			);
-			name = "Top Places";
-			sourceTree = "<group>";
-		};
 		8463EA2A199D3A9800DE8C69 /* RecentlyViewedPhotos */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +201,17 @@
 				8463EA32199D42B800DE8C69 /* TopPlaces.m */,
 			);
 			name = "Top Places";
+			sourceTree = "<group>";
+		};
+		84DF796E199FA5B7006A9B66 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84DF796A199FA558006A9B66 /* PlacePhotosTableViewController.h */,
+				84DF796B199FA558006A9B66 /* PlacePhotosTableViewController.m */,
+				8463EA2B199D3BBD00DE8C69 /* TopPlacesViewController.h */,
+				8463EA2C199D3BBD00DE8C69 /* TopPlacesViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +313,7 @@
 			files = (
 				8463E9F6199D331800DE8C69 /* AppDelegate.m in Sources */,
 				8463EA33199D42B800DE8C69 /* TopPlaces.m in Sources */,
+				84DF796C199FA558006A9B66 /* PlacePhotosTableViewController.m in Sources */,
 				8463EA1F199D338F00DE8C69 /* FlickrFetcher.m in Sources */,
 				8463EA2D199D3BBD00DE8C69 /* TopPlacesViewController.m in Sources */,
 				8463EA30199D3BDC00DE8C69 /* RecentlyViewedViewController.m in Sources */,
@@ -516,6 +522,7 @@
 				8463EA16199D331800DE8C69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8463EA17199D331800DE8C69 /* Build configuration list for PBXNativeTarget "TopPlacesTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +531,7 @@
 				8463EA19199D331800DE8C69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
