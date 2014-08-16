@@ -35,6 +35,9 @@
     
     self.scrollView.contentSize = photoSize;
 
+    UINavigationController *navCon  = (UINavigationController*) [self.navigationController.viewControllers objectAtIndex:2];
+    navCon.navigationItem.title = self.photoTitle;
+
 }
 
 #pragma mark - Delegate Methods

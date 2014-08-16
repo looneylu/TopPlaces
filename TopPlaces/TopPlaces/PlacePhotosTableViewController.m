@@ -92,7 +92,7 @@
     // get the picture URL for picture at indexPath
     self.url = [self.photoURLs objectAtIndex:indexPath.row];
 
-    [self performSegueWithIdentifier:@"toImageView" sender:nil];
+    [self performSegueWithIdentifier:@"toImageView" sender:indexPath];
 }
 
 #pragma mark - Navigation
@@ -104,8 +104,17 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"toImageView"])
     {
+        NSIndexPath *indexPath = sender;
         PictureViewController *pictureVC = segue.destinationViewController;
-        pictureVC.url = self.url; 
+        pictureVC.url = self.url;
+        // if it doesn't have a description either, label it Untitled"
+        if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"] length] > 0)
+            pictureVC.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+        else if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"] length] > 0)
+            pictureVC.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"];
+        else
+            pictureVC.photoTitle = @"Untitled";
+        NSLog(@"%@", pictureVC.photoTitle); 
     }
 }
 
