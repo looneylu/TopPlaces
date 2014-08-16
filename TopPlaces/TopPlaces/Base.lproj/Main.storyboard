@@ -158,15 +158,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Photos" id="5MS-CU-6TA"/>
+                    <connections>
+                        <segue destination="s2z-r8-trd" kind="push" identifier="toImageView" id="L6L-CZ-jiO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jmh-ee-7S4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-349" y="663"/>
         </scene>
-        <!--View Controller-->
+        <!--Picture View Controller-->
         <scene sceneID="oTr-9j-5j1">
             <objects>
-                <viewController id="s2z-r8-trd" sceneMemberID="viewController">
+                <viewController id="s2z-r8-trd" customClass="PictureViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="its-jb-lSx"/>
                         <viewControllerLayoutGuide type="bottom" id="EmO-Tc-0Lf"/>
@@ -174,8 +177,25 @@
                     <view key="view" contentMode="scaleToFill" id="wqc-qa-flw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D82-mj-EbE">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8kE-u2-v4f">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="518"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="XL1-s9-1uG"/>
+                    <connections>
+                        <outlet property="imageView" destination="8kE-u2-v4f" id="aDD-C1-mUA"/>
+                        <outlet property="scrollView" destination="D82-mj-EbE" id="JTN-ZO-NOl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzv-Uh-Tlt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

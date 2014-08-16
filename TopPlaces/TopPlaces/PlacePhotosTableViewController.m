@@ -8,12 +8,14 @@
 
 #import "PlacePhotosTableViewController.h"
 #import "TopPlaces.h"
+#import "PictureViewController.h"
 
 @interface PlacePhotosTableViewController ()
 
 @property (nonatomic, strong) TopPlaces *placePictures;
 @property (nonatomic, strong) NSArray *photoURLs;
 @property (nonatomic, strong) NSArray *photoDictArray;
+@property (nonatomic, strong) NSURL *url;
 
 @end
 
@@ -65,6 +67,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
+    // use the picture title to label cell
+    // if the picture doesn't have a title, use its description
+    // if it doesn't have a description either, label it Untitled"
     if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"] length] > 0)
         cell.textLabel.text = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     else if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"] length] > 0)
@@ -72,6 +77,8 @@
     else
         cell.textLabel.text = @"Untitled";
     
+    // use picture's description for cell subtitle
+    // if there is no description, label it "No Detail"
     if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"] length] > 0)
         cell.detailTextLabel.text = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"];
     else
@@ -80,8 +87,14 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // get the picture URL for picture at indexPath
+    self.url = [self.photoURLs objectAtIndex:indexPath.row];
 
-/*
+    [self performSegueWithIdentifier:@"toImageView" sender:nil];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -89,7 +102,12 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"toImageView"])
+    {
+        PictureViewController *pictureVC = segue.destinationViewController;
+        pictureVC.url = self.url; 
+    }
 }
-*/
+
 
 @end
