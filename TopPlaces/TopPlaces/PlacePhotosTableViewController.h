@@ -10,4 +10,6 @@
 
 @interface PlacePhotosTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSString *placeID;
+
 @end

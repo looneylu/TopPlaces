@@ -8,6 +8,7 @@
 
 #import "TopPlacesViewController.h"
 #import "TopPlaces.h"
+#import "PlacePhotosTableViewController.h"
 
 @interface TopPlacesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) NSArray *topCountries;
 @property (strong, nonatomic) NSArray *topPlacesByCountryArray;
 @property (strong, nonatomic) TopPlaces *places;
+@property (strong, nonatomic) NSString *uniquePlaceID;
 
 @end
 
@@ -55,9 +57,11 @@
     
     // to access city and country names, get to dictionary inside embedded array
     NSString *cityName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"city"];
-    NSString *countryName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"country"];
+    NSString *districtName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"district"];
     cell.textLabel.text = cityName;
-    cell.detailTextLabel.text = countryName;
+    cell.detailTextLabel.text = districtName;
+
+//    cell.textLabel.text = [NSString stringWithFormat:@"Section %i Row %i", indexPath.section, indexPath.row];
     
     return cell;
 }
@@ -80,8 +84,20 @@
     return [self.topCountries objectAtIndex:section];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //get the placeID before segueing to photos table view
+    NSString *placeID = [[NSString alloc] init];
+    placeID = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]objectForKey:@"place_id"];
+    self.uniquePlaceID = placeID;
+    
+    NSLog(@"section %i row %i", indexPath.section, indexPath.row);
+    NSLog(@"%@", self.uniquePlaceID);
+    
+    [self performSegueWithIdentifier:@"toPhotos" sender:nil];
+}
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -89,7 +105,17 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"toPhotos"])
+    {
+        NSLog(@"%@", self.uniquePlaceID);
+        PlacePhotosTableViewController *PlacePhotosTVC = segue.destinationViewController;
+        PlacePhotosTVC.placeID = self.uniquePlaceID;
+        NSLog(@"%@", PlacePhotosTVC.placeID);
+    }
+    
+    
 }
-*/
+
 
 @end

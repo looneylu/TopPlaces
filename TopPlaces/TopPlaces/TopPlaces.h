@@ -17,5 +17,7 @@
 - (NSArray *)getTopPlaces;
 - (NSArray *) numberOfCountries;
 - (NSArray *) topPlacesByCountryArray;
+- (void) queryForPhotos:(NSString *)placeID;
+- (NSArray *) retrievePhotoURLs;
 
 @end

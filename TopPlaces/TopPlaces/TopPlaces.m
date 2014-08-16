@@ -9,10 +9,31 @@
 #import "TopPlaces.h"
 #import "FlickrFetcher.h"
 
+@interface TopPlaces ()
+
+@property (nonatomic, strong) NSArray *places;
+@property (nonatomic, strong) NSArray *photoDictionaryArray;
+
+@end
+
 @implementation TopPlaces
 
 #pragma mark - Lazy Instantiation
 
+- (NSArray *)places
+{
+    if (!_places)
+        _places = [[NSArray alloc] init];
+    
+    return _places;
+}
+
+- (NSArray *)photoDictionaryArray
+{
+    if (!_photoDictionaryArray)
+        _photoDictionaryArray = [[NSArray alloc] init];
+    return _photoDictionaryArray; 
+}
 
 #pragma mark - Methods
 
@@ -28,23 +49,50 @@
     
     // take places information from JSONData and add each place to topPlaces array
     NSDictionary *placeResults = JSONData[@"places"];
-    NSArray *places = placeResults[@"place"];
+    self.places = placeResults[@"place"];
     
     //get place names
     NSMutableArray *placeNames = [[NSMutableArray alloc] init];
-    for (NSDictionary *place in places)
+    for (NSDictionary *place in self.places)
     {
         [placeNames addObject:[place objectForKey:@"_content" ]];
     }
     
-    NSLog(@"%@", places);
+//    NSLog(@"%@", self.places);
     
     return placeNames;
 }
 
-- (void) queryForPhotos
+- (void) queryForPhotos:(NSString *)placeID
 {
+    NSURL *pictureURL = [FlickrFetcher URLforPhotosInPlace:placeID maxResults:50];
     
+    //retrieve data from Flickr
+    // create NSData to contain information returned from Flickr
+    NSData *data = [NSData dataWithContentsOfURL:pictureURL];
+    
+    //data returned is in JSON format
+    // turn the JSON into property list
+    NSDictionary *JSONData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    // get photo dictionaries from JSONData
+    NSDictionary *photos = JSONData[@"photos"];
+    self.photoDictionaryArray = photos[@"photo"];
+}
+
+-(NSArray *) retrievePhotoURLs
+{
+    NSMutableArray *photoURLS = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *dict in self.photoDictionaryArray)
+    {
+        NSURL *photoURL = [FlickrFetcher URLforPhoto:dict format:FlickrPhotoFormatOriginal];
+        
+        if (photoURL)
+            [photoURLS addObject:photoURL];
+    }
+    
+    return photoURLS; 
 }
 
 - (NSArray *)placeNameSplitIntoComponents
@@ -75,14 +123,22 @@
         [self.placesWithNamesSplit addObject:placeDictionary];
     }
     
+    // add place_id and photo_count to each dictionary entry in placesWithNameSplit
+    for (int i = 0 ; i < [self.placesWithNamesSplit count] ; i++)
+    {
+        [[self.placesWithNamesSplit objectAtIndex:i] setObject:[[self.places objectAtIndex:i] objectForKey:@"place_id"]  forKey:@"place_id"];
+        [[self.placesWithNamesSplit objectAtIndex:i] setObject:[[self.places objectAtIndex:i] objectForKey:@"photo_count"]  forKey:@"photo_count"];
+    }
+    
     // Sort array in alphabetical order by city and country
     NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
     NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"city" ascending:YES];
     [self.placesWithNamesSplit sortUsingDescriptors:@[sortDescriptor1, sortDescriptor2]];
 
+//    NSLog(@"%@", self.placesWithNamesSplit);
+    
     return self.placesWithNamesSplit;
 }
-
 
 - (NSArray *)numberOfCountries
 {
