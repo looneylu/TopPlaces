@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) TopPlaces *placePictures;
 @property (nonatomic, strong) NSArray *photoURLs;
+@property (nonatomic, strong) NSArray *photoDictArray;
 
 @end
 
@@ -38,9 +39,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    NSLog(@"%@", self.placeID);
-    [self.placePictures queryForPhotos:self.placeID];
-    NSLog(@"%@", [self.placePictures retrievePhotoURLs]);
+    self.photoDictArray = [[NSArray alloc] initWithArray:[self.placePictures queryForPhotos:self.placeID]];
+//    NSLog(@"There are %i entries in array", [self.photoDictArray count]);
+//    NSLog(@"%@", self.photoDictArray);
+    self.photoURLs = [[NSArray alloc] initWithArray:[self.placePictures retrievePhotoURLs]];
+//    NSLog(@"There are %i URLs", [self.photoURLs count]);
 }
 
 #pragma mark - Table view data source
@@ -54,8 +57,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"%i", [[self.placePictures retrievePhotoURLs] count]);
-    return [[self.placePictures retrievePhotoURLs] count];
+    return [self.photoURLs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,6 +65,17 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
+    if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"] length] > 0)
+        cell.textLabel.text = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+    else if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"] length] > 0)
+        cell.textLabel.text = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"];
+    else
+        cell.textLabel.text = @"Untitled";
+    
+    if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"] length] > 0)
+        cell.detailTextLabel.text = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"];
+    else
+        cell.detailTextLabel.text = @"No Detail";
     
     return cell;
 }

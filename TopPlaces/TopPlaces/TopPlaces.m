@@ -63,7 +63,7 @@
     return placeNames;
 }
 
-- (void) queryForPhotos:(NSString *)placeID
+- (NSArray *) queryForPhotos:(NSString *)placeID
 {
     NSURL *pictureURL = [FlickrFetcher URLforPhotosInPlace:placeID maxResults:50];
     
@@ -78,6 +78,19 @@
     // get photo dictionaries from JSONData
     NSDictionary *photos = JSONData[@"photos"];
     self.photoDictionaryArray = photos[@"photo"];
+    
+    // make sure entries in photoDictionaryArray have valid URLs
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in self.photoDictionaryArray)
+    {
+        NSURL *photoURL = [FlickrFetcher URLforPhoto:dict format:FlickrPhotoFormatOriginal];
+        
+        if (photoURL)
+            [tempArray addObject:dict];
+    }
+    
+    NSArray *photoDictArray = [[NSArray alloc] initWithArray:tempArray];
+    return photoDictArray; 
 }
 
 -(NSArray *) retrievePhotoURLs

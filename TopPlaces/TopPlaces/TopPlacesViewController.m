@@ -90,10 +90,6 @@
     NSString *placeID = [[NSString alloc] init];
     placeID = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]objectForKey:@"place_id"];
     self.uniquePlaceID = placeID;
-    
-    NSLog(@"section %i row %i", indexPath.section, indexPath.row);
-    NSLog(@"%@", self.uniquePlaceID);
-    
     [self performSegueWithIdentifier:@"toPhotos" sender:nil];
 }
 
@@ -108,10 +104,8 @@
     
     if ([segue.identifier isEqualToString:@"toPhotos"])
     {
-        NSLog(@"%@", self.uniquePlaceID);
         PlacePhotosTableViewController *PlacePhotosTVC = segue.destinationViewController;
         PlacePhotosTVC.placeID = self.uniquePlaceID;
-        NSLog(@"%@", PlacePhotosTVC.placeID);
     }
     
     
