@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -56,6 +57,7 @@
     
     if(self.url)
     {
+        [self.activityIndicator startAnimating];
         NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
@@ -68,6 +70,7 @@
                     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localFile]];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.imageView.image = image;
+                        [self.activityIndicator stopAnimating]; 
                     });
                 }
             }
