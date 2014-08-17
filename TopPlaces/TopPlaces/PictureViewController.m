@@ -105,14 +105,15 @@
     {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         //save viewed photo to recentPictures dictionary
-        [dict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
+        [dict setObject:self.selectedPhoto.cityName forKey:@"cityName"];
         [dict setObject:self.selectedPhoto.districtName forKey:@"districtName"];
         [dict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
         [dict setObject:[self.selectedPhoto.photoURL absoluteString] forKey:@"photourl"];
         [dict setObject:self.selectedPhoto.photoTitle forKey:@"photoTitle"];
 
+        // make sure NSUserDefaults is only storing a maximum of 20 recent pictures
         if ([pictureArray count] < 20)
-            [pictureArray addObject:dict];
+            [pictureArray insertObject:dict atIndex:0];
         else
         {
             [pictureArray removeLastObject];

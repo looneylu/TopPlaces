@@ -12,7 +12,7 @@
 
 #pragma mark - Properties
 @property (strong, nonatomic) IBOutlet UITableView *recentPhotosTableView;
-@property (strong, nonatomic) NSArray *test;
+@property (strong, nonatomic) NSArray *photos;
 
 @end
 
@@ -22,9 +22,9 @@
 
 - (NSArray *) test
 {
-    if (!_test)
-        _test = [[NSArray alloc] init];
-    return _test;
+    if (!_photos)
+        _photos = [[NSArray alloc] init];
+    return _photos;
 }
 
 #pragma mark - viewDidLoad
@@ -34,14 +34,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.test = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
+    self.recentPhotosTableView.dataSource = self;
+    self.recentPhotosTableView.delegate = self;
+    
+    self.photos = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     
-    self.test = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
+    self.photos = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
 }
 
 #pragma mark - UITableView DataSource/Delegate
@@ -50,13 +53,18 @@
 {
     static NSString *cellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+
+    NSString *cellTitle = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"photoTitle"];
+    NSString *country = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"countryName"];
+    cell.textLabel.text = cellTitle;
+    cell.detailTextLabel.text = country;
     
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [self.test count];
 }
 
 /*
