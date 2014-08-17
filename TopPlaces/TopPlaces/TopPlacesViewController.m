@@ -9,6 +9,7 @@
 #import "TopPlacesViewController.h"
 #import "TopPlaces.h"
 #import "PlacePhotosTableViewController.h"
+#import "RecentTopPictures.h"
 
 @interface TopPlacesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -19,7 +20,7 @@
 @property (strong, nonatomic) NSArray *topCountries;
 @property (strong, nonatomic) NSArray *topPlacesByCountryArray;
 @property (strong, nonatomic) TopPlaces *places;
-@property (strong, nonatomic) NSString *uniquePlaceID;
+@property (strong, nonatomic) RecentTopPictures *recentPictures;
 
 @end
 
@@ -32,6 +33,14 @@
     if (!_places)
         _places = [[TopPlaces alloc] init];
     return _places;
+}
+
+- (RecentTopPictures *) recentPictures
+{
+    if (!_recentPictures)
+        _recentPictures = [[RecentTopPictures alloc] init];
+    
+    return _recentPictures;
 }
 
 #pragma mark - viewDidLoad
@@ -89,7 +98,13 @@
     //get the placeID before segueing to photos table view
     NSString *placeID = [[NSString alloc] init];
     placeID = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]objectForKey:@"place_id"];
-    self.uniquePlaceID = placeID;
+    
+    self.recentPictures = nil; 
+    self.recentPictures.cityName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"city"];
+    self.recentPictures.districtName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"district"];
+    self.recentPictures.countryName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"country"];
+    self.recentPictures.placeID = [[NSString alloc] initWithString:placeID];
+    
     [self performSegueWithIdentifier:@"toPhotos" sender:nil];
 }
 
@@ -105,7 +120,7 @@
     if ([segue.identifier isEqualToString:@"toPhotos"])
     {
         PlacePhotosTableViewController *PlacePhotosTVC = segue.destinationViewController;
-        PlacePhotosTVC.placeID = self.uniquePlaceID;
+        PlacePhotosTVC.selectedPlace = self.recentPictures;
     }
     
     

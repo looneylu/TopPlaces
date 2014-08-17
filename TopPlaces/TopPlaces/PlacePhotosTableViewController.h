@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecentTopPictures.h"
 
 @interface PlacePhotosTableViewController : UITableViewController
 
-@property (nonatomic, strong) NSString *placeID;
+@property (nonatomic, strong) RecentTopPictures *selectedPlace;
 
 @end

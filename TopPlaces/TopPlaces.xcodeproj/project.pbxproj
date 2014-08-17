@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841BBE2C19A12A4B009E1EDA /* RecentTopPictures.m in Sources */ = {isa = PBXBuildFile; fileRef = 841BBE2B19A12A4B009E1EDA /* RecentTopPictures.m */; };
+		841BBE3019A1371D009E1EDA /* RecentPicturesArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 841BBE2F19A1371D009E1EDA /* RecentPicturesArray.m */; };
 		8463E9E6199D331800DE8C69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8463E9E5199D331800DE8C69 /* Foundation.framework */; };
 		8463E9E8199D331800DE8C69 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8463E9E7199D331800DE8C69 /* CoreGraphics.framework */; };
 		8463E9EA199D331800DE8C69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8463E9E9199D331800DE8C69 /* UIKit.framework */; };
@@ -39,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		841BBE2A19A12A4B009E1EDA /* RecentTopPictures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentTopPictures.h; sourceTree = "<group>"; };
+		841BBE2B19A12A4B009E1EDA /* RecentTopPictures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentTopPictures.m; sourceTree = "<group>"; };
+		841BBE2E19A1371D009E1EDA /* RecentPicturesArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPicturesArray.h; sourceTree = "<group>"; };
+		841BBE2F19A1371D009E1EDA /* RecentPicturesArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPicturesArray.m; sourceTree = "<group>"; };
 		8463E9E2199D331800DE8C69 /* TopPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8463E9E5199D331800DE8C69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8463E9E7199D331800DE8C69 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,6 +101,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841BBE2719A128D1009E1EDA /* TopPlacesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8463EA2B199D3BBD00DE8C69 /* TopPlacesViewController.h */,
+				8463EA2C199D3BBD00DE8C69 /* TopPlacesViewController.m */,
+			);
+			name = TopPlacesViewController;
+			sourceTree = "<group>";
+		};
+		841BBE2819A128F1009E1EDA /* PlacePhotos */ = {
+			isa = PBXGroup;
+			children = (
+				84DF796A199FA558006A9B66 /* PlacePhotosTableViewController.h */,
+				84DF796B199FA558006A9B66 /* PlacePhotosTableViewController.m */,
+			);
+			name = PlacePhotos;
+			sourceTree = "<group>";
+		};
+		841BBE2919A12906009E1EDA /* PictureView */ = {
+			isa = PBXGroup;
+			children = (
+				84DF796F199FF6BE006A9B66 /* PictureViewController.h */,
+				84DF7970199FF6BE006A9B66 /* PictureViewController.m */,
+			);
+			name = PictureView;
+			sourceTree = "<group>";
+		};
+		841BBE2D19A12A6C009E1EDA /* Recent Pictures */ = {
+			isa = PBXGroup;
+			children = (
+				841BBE2E19A1371D009E1EDA /* RecentPicturesArray.h */,
+				841BBE2F19A1371D009E1EDA /* RecentPicturesArray.m */,
+				841BBE2A19A12A4B009E1EDA /* RecentTopPictures.h */,
+				841BBE2B19A12A4B009E1EDA /* RecentTopPictures.m */,
+			);
+			name = "Recent Pictures";
+			sourceTree = "<group>";
+		};
 		8463E9D9199D331800DE8C69 = {
 			isa = PBXGroup;
 			children = (
@@ -130,8 +174,8 @@
 			children = (
 				8463E9F7199D331800DE8C69 /* Main.storyboard */,
 				84DF796E199FA5B7006A9B66 /* View Controllers */,
+				841BBE2D19A12A6C009E1EDA /* Recent Pictures */,
 				8463EA34199D42C300DE8C69 /* Top Places */,
-				8463EA2A199D3A9800DE8C69 /* RecentlyViewedPhotos */,
 				8463EA1A199D333100DE8C69 /* AppDelegate */,
 				8463EA1B199D338F00DE8C69 /* Flickr Fetcher */,
 				8463E9FD199D331800DE8C69 /* Images.xcassets */,
@@ -209,12 +253,10 @@
 		84DF796E199FA5B7006A9B66 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				84DF796F199FF6BE006A9B66 /* PictureViewController.h */,
-				84DF7970199FF6BE006A9B66 /* PictureViewController.m */,
-				84DF796A199FA558006A9B66 /* PlacePhotosTableViewController.h */,
-				84DF796B199FA558006A9B66 /* PlacePhotosTableViewController.m */,
-				8463EA2B199D3BBD00DE8C69 /* TopPlacesViewController.h */,
-				8463EA2C199D3BBD00DE8C69 /* TopPlacesViewController.m */,
+				8463EA2A199D3A9800DE8C69 /* RecentlyViewedPhotos */,
+				841BBE2919A12906009E1EDA /* PictureView */,
+				841BBE2819A128F1009E1EDA /* PlacePhotos */,
+				841BBE2719A128D1009E1EDA /* TopPlacesViewController */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -316,6 +358,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841BBE2C19A12A4B009E1EDA /* RecentTopPictures.m in Sources */,
+				841BBE3019A1371D009E1EDA /* RecentPicturesArray.m in Sources */,
 				8463E9F6199D331800DE8C69 /* AppDelegate.m in Sources */,
 				8463EA33199D42B800DE8C69 /* TopPlaces.m in Sources */,
 				84DF796C199FA558006A9B66 /* PlacePhotosTableViewController.m in Sources */,

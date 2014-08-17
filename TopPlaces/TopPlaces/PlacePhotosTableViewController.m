@@ -15,7 +15,6 @@
 @property (nonatomic, strong) TopPlaces *placePictures;
 @property (nonatomic, strong) NSArray *photoURLs;
 @property (nonatomic, strong) NSArray *photoDictArray;
-@property (nonatomic, strong) NSURL *url;
 
 @end
 
@@ -36,16 +35,11 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.photoDictArray = [[NSArray alloc] initWithArray:[self.placePictures queryForPhotos:self.placeID]];
-//    NSLog(@"There are %i entries in array", [self.photoDictArray count]);
-//    NSLog(@"%@", self.photoDictArray);
+    //get a dictionary of photos from selected place
+    self.photoDictArray = [[NSArray alloc] initWithArray:[self.placePictures queryForPhotos:self.selectedPlace.placeID]];
+
+    // get photo URLs
     self.photoURLs = [[NSArray alloc] initWithArray:[self.placePictures retrievePhotoURLs]];
-//    NSLog(@"There are %i URLs", [self.photoURLs count]);
 }
 
 #pragma mark - Table view data source
@@ -90,7 +84,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // get the picture URL for picture at indexPath
-    self.url = [self.photoURLs objectAtIndex:indexPath.row];
+    self.selectedPlace.photoURL = [self.photoURLs objectAtIndex:indexPath.row];
 
     [self performSegueWithIdentifier:@"toImageView" sender:indexPath];
 }
@@ -106,14 +100,18 @@
     {
         NSIndexPath *indexPath = sender;
         PictureViewController *pictureVC = segue.destinationViewController;
-        pictureVC.url = self.url;
+
         // if it doesn't have a description either, label it Untitled"
         if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"] length] > 0)
-            pictureVC.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+        {
+            self.selectedPlace.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"];
+        }
         else if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"] length] > 0)
-            pictureVC.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"];
+            self.selectedPlace.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"descriptio._content"];
         else
-            pictureVC.photoTitle = @"Untitled";
+            self.selectedPlace.photoTitle = @"Untitled";
+        
+        pictureVC.selectedPhoto = self.selectedPlace; 
     }
 }
 

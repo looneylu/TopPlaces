@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecentTopPictures.h"
 
 @interface PictureViewController : UIViewController
 
-@property (nonatomic, strong) NSURL *url;
-@property (nonatomic, strong) NSString *photoTitle;
+@property (nonatomic, strong) RecentTopPictures *selectedPhoto;
 
 @end
