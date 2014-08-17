@@ -198,6 +198,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="XL1-s9-1uG"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="9zm-xM-XPN" id="Ehu-Hk-ty1"/>
                         <outlet property="imageView" destination="8kE-u2-v4f" id="aDD-C1-mUA"/>
                         <outlet property="scrollView" destination="D82-mj-EbE" id="JTN-ZO-NOl"/>
                     </connections>
