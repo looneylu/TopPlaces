@@ -35,8 +35,13 @@
     // Do any additional setup after loading the view.
     
     self.test = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
-    NSLog(@"%@", self.test);
-    NSLog(@"%i", [self.test count]); 
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    self.test = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
 }
 
 #pragma mark - UITableView DataSource/Delegate

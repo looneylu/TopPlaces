@@ -111,7 +111,13 @@
         [dict setObject:[self.selectedPhoto.photoURL absoluteString] forKey:@"photourl"];
         [dict setObject:self.selectedPhoto.photoTitle forKey:@"photoTitle"];
 
-        [pictureArray addObject:dict];
+        if ([pictureArray count] < 20)
+            [pictureArray addObject:dict];
+        else
+        {
+            [pictureArray removeLastObject];
+            [pictureArray insertObject:dict atIndex:0];
+        }
 
         NSArray *pictureDictionaries = [[NSArray alloc] initWithArray:pictureArray];
         
