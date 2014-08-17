@@ -79,7 +79,7 @@
             </objects>
             <point key="canvasLocation" x="-1757" y="990"/>
         </scene>
-        <!--Recently Viewed View Controller - Item 2-->
+        <!--Recently Viewed View Controller - Recent Pictures-->
         <scene sceneID="0KU-O6-miy">
             <objects>
                 <viewController id="OQf-ea-3xa" customClass="RecentlyViewedViewController" sceneMemberID="viewController">
@@ -109,7 +109,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="dOt-66-NPF"/>
+                    <tabBarItem key="tabBarItem" title="Recent Pictures" id="dOt-66-NPF"/>
                     <connections>
                         <outlet property="recentPhotosTableView" destination="qBP-dd-BEc" id="vOA-qw-gAo"/>
                     </connections>
@@ -201,11 +201,11 @@
             </objects>
             <point key="canvasLocation" x="112" y="663"/>
         </scene>
-        <!--Navigation Controller - Item 1-->
+        <!--Navigation Controller - Top Places-->
         <scene sceneID="5UT-pi-M8U">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GID-Dc-IeR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="xsC-YF-6up"/>
+                    <tabBarItem key="tabBarItem" title="Top Places" id="xsC-YF-6up"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Seg-dq-9Gi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

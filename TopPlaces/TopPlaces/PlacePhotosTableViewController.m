@@ -114,7 +114,6 @@
             pictureVC.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"];
         else
             pictureVC.photoTitle = @"Untitled";
-        NSLog(@"%@", pictureVC.photoTitle); 
     }
 }
 
