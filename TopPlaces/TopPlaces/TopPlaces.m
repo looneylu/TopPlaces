@@ -83,6 +83,7 @@
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     for (NSDictionary *dict in self.photoDictionaryArray)
     {
+        //make sure dict returns a valid URL so user selection will return valid photo
         NSURL *photoURL = [FlickrFetcher URLforPhoto:dict format:FlickrPhotoFormatOriginal];
         
         if (photoURL)
