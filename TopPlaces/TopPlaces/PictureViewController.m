@@ -8,28 +8,16 @@
 
 #import "PictureViewController.h"
 #import "FlickrFetcher.h"
-#import "RecentPicturesArray.h"
 
 @interface PictureViewController () <UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) RecentPicturesArray *recentPictures;
 
 @end
 
 @implementation PictureViewController
-
-#pragma mark - LazyInstantiation
-
-- (RecentPicturesArray *) recentPictures
-{
-    if (!_recentPictures)
-        _recentPictures = [[RecentPicturesArray alloc] init];
-    
-    return _recentPictures;
-}
 
 #pragma mark - viewDidLoad
 
@@ -98,9 +86,12 @@
 {
     BOOL alreadyInArray = NO;
     
+    NSMutableArray *pictureArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"]];
+    NSLog(@"%@", pictureArray); 
+    
     // make sure the viewed picture hasn't already been stored
     // go through array looking to see if the photo URL has already been stored
-    for (NSDictionary *dict in self.recentPictures.recentPhotosDictArray)
+    for (NSDictionary *dict in pictureArray)
         if (![self.selectedPhoto.photoURL isEqual:[dict objectForKey:@"photourl"]])
             alreadyInArray = NO;
         else
@@ -112,18 +103,21 @@
     // if the photo URL hasn't been stored, store and save changes to NSUserDefaults
     if (!alreadyInArray)
     {
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         //save viewed photo to recentPictures dictionary
-        [self.recentPictures.recentPhotosDict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
-        [self.recentPictures.recentPhotosDict setObject:self.selectedPhoto.districtName forKey:@"districtName"];
-        [self.recentPictures.recentPhotosDict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
-        [self.recentPictures.recentPhotosDict setObject:self.selectedPhoto.photoURL forKey:@"photourl"];
-        [self.recentPictures.recentPhotosDict setObject:self.selectedPhoto.photoTitle forKey:@"photoTitle"];
-        
-        [self.recentPictures.recentPhotosDictArray addObject:self.recentPictures.recentPhotosDict];
+        [dict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
+        [dict setObject:self.selectedPhoto.districtName forKey:@"districtName"];
+        [dict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
+        [dict setObject:[self.selectedPhoto.photoURL absoluteString] forKey:@"photourl"];
+        [dict setObject:self.selectedPhoto.photoTitle forKey:@"photoTitle"];
+
+        [pictureArray addObject:dict];
+
+        NSArray *pictureDictionaries = [[NSArray alloc] initWithArray:pictureArray];
         
         //save to NSUserDefaults
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"savedPictures"];
-        [[NSUserDefaults standardUserDefaults] setObject:self.recentPictures.recentPhotosDictArray forKey:@"savedPictures"];
+        [[NSUserDefaults standardUserDefaults] setObject: pictureDictionaries forKey:@"savedPictures"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }

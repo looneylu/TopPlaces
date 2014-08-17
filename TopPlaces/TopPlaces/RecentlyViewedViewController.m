@@ -12,10 +12,20 @@
 
 #pragma mark - Properties
 @property (strong, nonatomic) IBOutlet UITableView *recentPhotosTableView;
+@property (strong, nonatomic) NSArray *test;
 
 @end
 
 @implementation RecentlyViewedViewController
+
+#pragma mark - Lazy Instantiation
+
+- (NSArray *) test
+{
+    if (!_test)
+        _test = [[NSArray alloc] init];
+    return _test;
+}
 
 #pragma mark - viewDidLoad
 
@@ -23,6 +33,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.test = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
+    NSLog(@"%@", self.test);
+    NSLog(@"%i", [self.test count]); 
 }
 
 #pragma mark - UITableView DataSource/Delegate
