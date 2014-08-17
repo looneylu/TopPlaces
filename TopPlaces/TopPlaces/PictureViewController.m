@@ -28,10 +28,11 @@
     self.scrollView.minimumZoomScale = 0.5;
     
     //get picture from URL
-    NSData *data = [NSData dataWithContentsOfURL:self.url];
+//    NSData *data = [NSData dataWithContentsOfURL:self.url];
     CGSize photoSize = [self.imageView.image size];
     self.imageView.frame = CGRectMake(0, 0, photoSize.width, photoSize.height);
-    self.imageView.image = [[UIImage alloc] initWithData:data];
+//    self.imageView.image = [[UIImage alloc] initWithData:data];
+    [self startDownloadingImage];
     
     self.scrollView.contentSize = photoSize;
 
@@ -44,6 +45,35 @@
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.imageView;
+}
+
+#pragma mark - Methods
+
+- (void) startDownloadingImage
+{
+    //downloads image in a different thread to avoid blocking main thread
+    self.imageView.image = nil;
+    
+    if(self.url)
+    {
+        NSURLRequest *request = [NSURLRequest requestWithURL:self.url];
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                                                        completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
+            if (!error)
+            {
+                if ([request.URL isEqual:self.url])
+                {
+                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:localFile]];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.imageView.image = image;
+                    });
+                }
+            }
+        }];
+        [task resume];
+    }
 }
 
 /*
