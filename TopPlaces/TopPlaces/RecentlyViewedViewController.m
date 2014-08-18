@@ -16,7 +16,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *recentPhotosTableView;
 @property (strong, nonatomic) NSArray *photos;
 @property (strong, nonatomic) RecentTopPictures *selection;
-@property (strong, nonatomic) NSURL *url;
 
 @end
 
