@@ -31,14 +31,6 @@
     return _photos;
 }
 
-- (RecentTopPictures *) selectedPhoto
-{
-    if (_selection)
-        _selection = [[RecentTopPictures alloc] init];
-
-    return _selection;
-}
-
 #pragma mark - viewDidLoad
 
 - (void)viewDidLoad
@@ -90,9 +82,6 @@
     self.selection.districtName = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"districtName"];
     self.selection.countryName = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"countryName"];
     self.selection.photoTitle = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"photoTitle"];
-//    NSLog(@"%@", self.selection.photoURL);
-//    [[UIApplication sharedApplication] openURL:self.selection.photoURL];
-
 
     [self performSegueWithIdentifier:@"recentlyViewed" sender:nil];
 }
