@@ -7,12 +7,16 @@
 //
 
 #import "RecentlyViewedViewController.h"
+#import "PictureViewController.h"
+#import "RecentTopPictures.h"
 
 @interface RecentlyViewedViewController () <UITableViewDelegate,UITableViewDataSource>
 
 #pragma mark - Properties
 @property (strong, nonatomic) IBOutlet UITableView *recentPhotosTableView;
 @property (strong, nonatomic) NSArray *photos;
+@property (strong, nonatomic) RecentTopPictures *selection;
+@property (strong, nonatomic) NSURL *url;
 
 @end
 
@@ -25,6 +29,14 @@
     if (!_photos)
         _photos = [[NSArray alloc] init];
     return _photos;
+}
+
+- (RecentTopPictures *) selectedPhoto
+{
+    if (_selection)
+        _selection = [[RecentTopPictures alloc] init];
+
+    return _selection;
 }
 
 #pragma mark - viewDidLoad
@@ -44,7 +56,10 @@
 {
     [super viewWillAppear:YES];
     
+    self.navigationItem.title = @"Recently Viewed"; 
+    
     self.photos = [[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"];
+    [self.recentPhotosTableView reloadData]; 
 }
 
 #pragma mark - UITableView DataSource/Delegate
@@ -64,10 +79,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.test count];
+    return [self.photos count];
 }
 
-/*
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selection = [[RecentTopPictures alloc] init];
+    self.selection.cityName = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"cityName"];
+    self.selection.photoURL = [NSURL URLWithString:[[self.photos objectAtIndex:indexPath.row] objectForKey:@"photourl"]];
+    self.selection.districtName = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"districtName"];
+    self.selection.countryName = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"countryName"];
+    self.selection.photoTitle = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"photoTitle"];
+//    NSLog(@"%@", self.selection.photoURL);
+//    [[UIApplication sharedApplication] openURL:self.selection.photoURL];
+
+
+    [self performSegueWithIdentifier:@"recentlyViewed" sender:nil];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -75,7 +105,15 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"recentlyViewed"])
+    {
+        PictureViewController *pictureViewVC = segue.destinationViewController;
+
+        pictureViewVC.selectedPhoto = self.selection;
+        pictureViewVC.url = self.selection.photoURL;
+    }
 }
-*/
+
 
 @end

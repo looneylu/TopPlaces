@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSString *countryName;
 @property (nonatomic, strong) NSString *districtName;
 @property (nonatomic, strong) NSString *photoTitle;
-@property (nonatomic, strong) NSURL *photoURL; 
+@property (nonatomic, strong) NSURL *photoURL;
+
+@property (nonatomic, strong) NSMutableDictionary *pictureDict;
 
 @end

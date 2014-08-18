@@ -10,4 +10,6 @@
 
 @implementation RecentTopPictures
 
+#pragma mark - Lazy Instantiation
+
 @end

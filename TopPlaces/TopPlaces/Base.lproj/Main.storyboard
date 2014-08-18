@@ -72,14 +72,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="GID-Dc-IeR" kind="relationship" relationship="viewControllers" id="naS-tm-6zB"/>
-                        <segue destination="OQf-ea-3xa" kind="relationship" relationship="viewControllers" id="F3Y-Q3-w2z"/>
+                        <segue destination="flP-Gu-YfI" kind="relationship" relationship="viewControllers" id="F3Y-Q3-w2z"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B0L-th-ryX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1757" y="990"/>
         </scene>
-        <!--Recently Viewed View Controller - Recent Pictures-->
+        <!--Recently Viewed View Controller - Recently Viewed-->
         <scene sceneID="0KU-O6-miy">
             <objects>
                 <viewController id="OQf-ea-3xa" customClass="RecentlyViewedViewController" sceneMemberID="viewController">
@@ -97,7 +97,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="ab4-ea-4N2" detailTextLabel="iid-qA-bG8" style="IBUITableViewCellStyleSubtitle" id="mDs-JP-f9F">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mDs-JP-f9F" id="I9m-5w-P68">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -125,14 +125,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Recent Pictures" id="dOt-66-NPF"/>
+                    <navigationItem key="navigationItem" title="Recently Viewed" id="clU-mC-IIn"/>
                     <connections>
                         <outlet property="recentPhotosTableView" destination="qBP-dd-BEc" id="vOA-qw-gAo"/>
+                        <segue destination="s2z-r8-trd" kind="push" identifier="recentlyViewed" id="cKY-71-AJL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2cd-yA-zCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1315" y="1330"/>
+            <point key="canvasLocation" x="-789" y="1330"/>
         </scene>
         <!--Place Photos Table View Controller - Photos-->
         <scene sceneID="5k2-AG-T8r">
@@ -221,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fzv-Uh-Tlt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-81" y="663"/>
+            <point key="canvasLocation" x="521" y="1330"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="5UT-pi-M8U">
@@ -242,10 +243,32 @@
             </objects>
             <point key="canvasLocation" x="-1315" y="663"/>
         </scene>
+        <!--Navigation Controller - Recent Pictures-->
+        <scene sceneID="tdW-VW-6rO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="flP-Gu-YfI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recent Pictures" id="dOt-66-NPF"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ixo-qX-13A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="OQf-ea-3xa" kind="relationship" relationship="rootViewController" id="mN5-kf-zQh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ho8-YP-DqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1315" y="1330"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="cKY-71-AJL"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -37,9 +37,15 @@
     
     //get a dictionary of photos from selected place
     self.photoDictArray = [[NSArray alloc] initWithArray:[self.placePictures queryForPhotos:self.selectedPlace.placeID]];
-
+    
     // get photo URLs
     self.photoURLs = [[NSArray alloc] initWithArray:[self.placePictures retrievePhotoURLs]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.navigationItem.title = @"Photos";
 }
 
 #pragma mark - Table view data source
@@ -85,7 +91,7 @@
 {
     // get the picture URL for picture at indexPath
     self.selectedPlace.photoURL = [self.photoURLs objectAtIndex:indexPath.row];
-
+ 
     [self performSegueWithIdentifier:@"toImageView" sender:indexPath];
 }
 
@@ -100,6 +106,8 @@
     {
         NSIndexPath *indexPath = sender;
         PictureViewController *pictureVC = segue.destinationViewController;
+        
+        pictureVC.url = self.selectedPlace.photoURL; 
 
         // if it doesn't have a description either, label it Untitled"
         if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"] length] > 0)
@@ -107,10 +115,13 @@
             self.selectedPlace.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"];
         }
         else if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"] length] > 0)
-            self.selectedPlace.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"descriptio._content"];
+        {
+            self.selectedPlace.photoTitle = [[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"description._content"];
+        }
         else
+        {
             self.selectedPlace.photoTitle = @"Untitled";
-        
+        }
         pictureVC.selectedPhoto = self.selectedPlace; 
     }
 }

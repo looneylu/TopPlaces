@@ -57,6 +57,13 @@
     self.topPlacesByCountryArray = [[NSArray alloc] initWithArray:[self.places topPlacesByCountryArray]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    self.navigationItem.title = @"Top Places"; 
+}
+
 #pragma mark - Delegate/Data Source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -99,11 +106,13 @@
     NSString *placeID = [[NSString alloc] init];
     placeID = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]objectForKey:@"place_id"];
     
-    self.recentPictures = nil; 
+    self.recentPictures = nil;
     self.recentPictures.cityName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"city"];
     self.recentPictures.districtName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"district"];
     self.recentPictures.countryName = [[[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"country"];
     self.recentPictures.placeID = [[NSString alloc] initWithString:placeID];
+
+    self.recentPictures.pictureDict = [[self.topPlacesByCountryArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     [self performSegueWithIdentifier:@"toPhotos" sender:nil];
 }

@@ -37,12 +37,20 @@
     
     self.scrollView.contentSize = photoSize;
 
-    UINavigationController *navCon  = (UINavigationController*) [self.navigationController.viewControllers objectAtIndex:2];
-    navCon.navigationItem.title = self.selectedPhoto.photoTitle;
+//   UINavigationController *navCon  = (UINavigationController*) [self.navigationController.viewControllers objectAtIndex:2];
+//   navCon.navigationItem.title = self.selectedPhoto.photoTitle;
+        self.navigationController.navigationBar.topItem.title = self.selectedPhoto.photoTitle;
+}
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    
+    self.navigationItem.title = self.selectedPhoto.photoTitle; 
 }
 
 #pragma mark - Delegate Methods
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.imageView;
@@ -55,10 +63,10 @@
     //downloads image in a different thread to avoid blocking main thread
     self.imageView.image = nil;
     
-    if(self.selectedPhoto.photoURL)
+    if(self.url)
     {
         [self.activityIndicator startAnimating];
-        NSURLRequest *request = [NSURLRequest requestWithURL:self.selectedPhoto.photoURL];
+        NSURLRequest *request = [NSURLRequest requestWithURL:self.url]; 
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
         NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
@@ -78,6 +86,10 @@
         [task resume];
         [self saveToUserDefaults];
     }
+    else
+    {
+        
+    }
 }
 
 #pragma mark - Methods
@@ -87,12 +99,11 @@
     BOOL alreadyInArray = NO;
     
     NSMutableArray *pictureArray = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"savedPictures"]];
-    NSLog(@"%@", pictureArray); 
     
     // make sure the viewed picture hasn't already been stored
     // go through array looking to see if the photo URL has already been stored
     for (NSDictionary *dict in pictureArray)
-        if (![self.selectedPhoto.photoURL isEqual:[dict objectForKey:@"photourl"]])
+        if (![[self.url absoluteString] isEqual:[dict objectForKey:@"photourl"]])
             alreadyInArray = NO;
         else
         {
@@ -108,9 +119,10 @@
         [dict setObject:self.selectedPhoto.cityName forKey:@"cityName"];
         [dict setObject:self.selectedPhoto.districtName forKey:@"districtName"];
         [dict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
-        [dict setObject:[self.selectedPhoto.photoURL absoluteString] forKey:@"photourl"];
+        [dict setObject:[self.url absoluteString] forKey:@"photourl"];
         [dict setObject:self.selectedPhoto.photoTitle forKey:@"photoTitle"];
-
+        
+                         
         // make sure NSUserDefaults is only storing a maximum of 20 recent pictures
         if ([pictureArray count] < 20)
             [pictureArray insertObject:dict atIndex:0];
