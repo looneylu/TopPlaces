@@ -73,7 +73,8 @@
     
     //data returned is in JSON format
     // turn the JSON into property list
-    NSDictionary *JSONData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSError *error; 
+    NSDictionary *JSONData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     
     // get photo dictionaries from JSONData
     NSDictionary *photos = JSONData[@"photos"];

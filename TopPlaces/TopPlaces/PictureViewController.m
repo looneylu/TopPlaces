@@ -29,14 +29,15 @@
     self.scrollView.delegate = self;
     self.scrollView.maximumZoomScale = 2.0;
     self.scrollView.minimumZoomScale = 0.5;
-    
-    //get picture from URL
+
     CGSize photoSize = [self.imageView.image size];
     self.imageView.frame = CGRectMake(0, 0, photoSize.width, photoSize.height);
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.scrollView.contentSize = photoSize;
+    
+    //get picture from URL
     [self startDownloadingImage];
     
-    self.scrollView.contentSize = photoSize;
-
 //   UINavigationController *navCon  = (UINavigationController*) [self.navigationController.viewControllers objectAtIndex:2];
 //   navCon.navigationItem.title = self.selectedPhoto.photoTitle;
         self.navigationController.navigationBar.topItem.title = self.selectedPhoto.photoTitle;
