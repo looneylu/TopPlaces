@@ -253,8 +253,8 @@
 		84DF796E199FA5B7006A9B66 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8463EA2A199D3A9800DE8C69 /* RecentlyViewedPhotos */,
 				841BBE2919A12906009E1EDA /* PictureView */,
+				8463EA2A199D3A9800DE8C69 /* RecentlyViewedPhotos */,
 				841BBE2819A128F1009E1EDA /* PlacePhotos */,
 				841BBE2719A128D1009E1EDA /* TopPlacesViewController */,
 			);

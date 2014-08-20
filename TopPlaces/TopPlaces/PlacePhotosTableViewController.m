@@ -107,8 +107,6 @@
         NSIndexPath *indexPath = sender;
         PictureViewController *pictureVC = segue.destinationViewController;
         
-        pictureVC.url = self.selectedPlace.photoURL; 
-
         // if it doesn't have a description either, label it Untitled"
         if ([[[self.photoDictArray objectAtIndex:indexPath.row] objectForKey:@"title"] length] > 0)
         {

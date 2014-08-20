@@ -99,7 +99,7 @@
         PictureViewController *pictureViewVC = segue.destinationViewController;
 
         pictureViewVC.selectedPhoto = self.selection;
-        pictureViewVC.url = self.selection.photoURL;
+
     }
 }
 

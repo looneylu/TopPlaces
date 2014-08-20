@@ -12,6 +12,5 @@
 @interface PictureViewController : UIViewController
 
 @property (nonatomic, strong) RecentTopPictures *selectedPhoto;
-@property (nonatomic, strong) NSURL *url; 
 
 @end

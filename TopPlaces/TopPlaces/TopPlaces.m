@@ -132,6 +132,7 @@
         // 3rd object is the country name
         [placeDictionary setObject:[splitName objectAtIndex:0] forKey:@"city"];
         [placeDictionary setObject:[splitName objectAtIndex:1] forKey:@"district"];
+//        [placeDictionary setObject:[splitName objectAtIndex:2] forKey:@"country"];
         [placeDictionary setObject:[splitName lastObject] forKey:@"country"];
         
         [self.placesWithNamesSplit addObject:placeDictionary];

@@ -63,10 +63,10 @@
     //downloads image in a different thread to avoid blocking main thread
     self.imageView.image = nil;
     
-    if(self.url)
+    if(self.selectedPhoto.photoURL)
     {
         [self.activityIndicator startAnimating];
-        NSURLRequest *request = [NSURLRequest requestWithURL:self.url]; 
+        NSURLRequest *request = [NSURLRequest requestWithURL:self.self.selectedPhoto.photoURL];
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
         NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
@@ -103,7 +103,7 @@
     // make sure the viewed picture hasn't already been stored
     // go through array looking to see if the photo URL has already been stored
     for (NSDictionary *dict in pictureArray)
-        if (![[self.url absoluteString] isEqual:[dict objectForKey:@"photourl"]])
+        if (![[self.selectedPhoto.photoURL absoluteString] isEqual:[dict objectForKey:@"photourl"]])
             alreadyInArray = NO;
         else
         {
@@ -119,7 +119,7 @@
         [dict setObject:self.selectedPhoto.cityName forKey:@"cityName"];
         [dict setObject:self.selectedPhoto.districtName forKey:@"districtName"];
         [dict setObject:self.selectedPhoto.countryName forKey:@"countryName"];
-        [dict setObject:[self.url absoluteString] forKey:@"photourl"];
+        [dict setObject:[self.selectedPhoto.photoURL absoluteString] forKey:@"photourl"];
         [dict setObject:self.selectedPhoto.photoTitle forKey:@"photoTitle"];
         
                          
