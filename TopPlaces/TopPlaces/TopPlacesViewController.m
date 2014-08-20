@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSArray *topPlacesByCountryArray;
 @property (strong, nonatomic) TopPlaces *places;
 @property (strong, nonatomic) RecentTopPictures *recentPictures;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -52,6 +53,12 @@
     self.topPlacesTableView.delegate = self;
     self.topPlacesTableView.dataSource = self;
     
+    // pull to refresh control
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull To Refresh"];
+    [self.topPlacesTableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    
     self.topPlaces = [[NSArray alloc] initWithArray:[self.places placeNameSplitIntoComponents]];
     self.topCountries = [[NSArray alloc] initWithArray:[self.places numberOfCountries]];
     self.topPlacesByCountryArray = [[NSArray alloc] initWithArray:[self.places topPlacesByCountryArray]];
@@ -62,6 +69,14 @@
     [super viewWillAppear:YES];
     
     self.navigationItem.title = @"Top Places"; 
+}
+
+#pragma mark - Methods
+
+- (void)refreshTable
+{
+    [self.refreshControl endRefreshing];
+    [self.topPlacesTableView reloadData];
 }
 
 #pragma mark - Delegate/Data Source
