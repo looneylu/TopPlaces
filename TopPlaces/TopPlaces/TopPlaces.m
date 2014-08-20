@@ -113,7 +113,7 @@
 {
     // get top places using above method
     NSArray *placeNames = [[NSArray alloc] initWithArray:[self getTopPlaces]];
-    
+
     // placesWithNamesSplit
     self.placesWithNamesSplit = [[NSMutableArray alloc] init];
     
